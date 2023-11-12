@@ -3,6 +3,7 @@ import 'package:dashtoon_web_app/Api/api_call.dart';
 import 'package:dashtoon_web_app/components/dialoges.dart';
 import 'package:dashtoon_web_app/screens/comic_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class HomePage extends StatefulWidget {
@@ -125,7 +126,20 @@ class _HomePageState extends State<HomePage> {
                 }),
             SizedBox(height: 20),
             _loading
-                ? CircularProgressIndicator() // Show loader while fetching data
+                ? Column(
+                    children: [
+                      SizedBox(height: 10),
+                      Container(
+                        height: screenHight * 0.05,
+                        width: screenWidth * 0.06,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.lineScalePulseOut,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text('Please wait while we are fetching images....')
+                    ],
+                  ) // Show loader while fetching data
                 : _imageBytesList.isNotEmpty
                     ? Container(
                         height: screenHight * 0.75,
@@ -139,17 +153,15 @@ class _HomePageState extends State<HomePage> {
                         //         : ((_imageBytesList.length /
                         //                 (screenWidth / 250))) *
                         //             100,
-                        child: Expanded(
-                          child: ResponsiveGridList(
-                              desiredItemWidth:
-                                  screenWidth < 220 ? screenWidth * 0.8 : 200,
-                              minSpacing: 10,
-                              children: List.generate(
-                                      _imageBytesList.length,
-                                      (index) =>
-                                          Image.memory(_imageBytesList[index]!))
-                                  .toList()),
-                        ),
+                        child: ResponsiveGridList(
+                            desiredItemWidth:
+                                screenWidth < 220 ? screenWidth * 0.8 : 200,
+                            minSpacing: 10,
+                            children: List.generate(
+                                    _imageBytesList.length,
+                                    (index) =>
+                                        Image.memory(_imageBytesList[index]!))
+                                .toList()),
                       )
                     : SizedBox.shrink(),
           ],

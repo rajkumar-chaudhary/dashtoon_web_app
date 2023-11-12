@@ -107,6 +107,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  loading_indicator:
+    dependency: "direct main"
+    description:
+      name: loading_indicator
+      sha256: a101ffb2aa3e646137d7810bfa90b50525dd3f72c01235b6df7491cf6af6f284
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   matcher:
     dependency: transitive
     description:
@@ -139,22 +147,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
-  photo_view:
-    dependency: "direct main"
-    description:
-      name: photo_view
-      sha256: "8036802a00bae2a78fc197af8a158e3e2f7b500561ed23b4c458107685e645bb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.14.0"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      sha256: b1c1ac5ce6688d77f65f3375a9abb9319b3cb32486bdc7a1e0fdf004d7ba4e47
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.1"
   responsive_grid:
     dependency: "direct main"
     description:
@@ -163,14 +155,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.4"
-  responsive_grid_list:
-    dependency: "direct main"
-    description:
-      name: responsive_grid_list
-      sha256: e6cd1754240795cb8b08a4520c9eb5d28856ecf71de5fe6e64535a68c0913563
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
   sky_engine:
     dependency: transitive
     description: flutter
