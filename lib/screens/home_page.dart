@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:dashtoon_web_app/Api/api_call.dart';
 import 'package:dashtoon_web_app/components/dialoges.dart';
+import 'package:dashtoon_web_app/screens/comic_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
@@ -84,7 +85,10 @@ class _HomePageState extends State<HomePage> {
     double screenHight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Generator'),
+        title: Text(
+          'Image Generator',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -115,7 +119,7 @@ class _HomePageState extends State<HomePage> {
               height: 15,
             ),
             ElevatedButton(
-                child: Text('Generate Image'),
+                child: Text('Generate Images'),
                 onPressed: () async {
                   _loading ? null : _handleFetch();
                 }),
@@ -123,19 +127,54 @@ class _HomePageState extends State<HomePage> {
             _loading
                 ? CircularProgressIndicator() // Show loader while fetching data
                 : _imageBytesList.isNotEmpty
-                    ? ResponsiveGridList(
-                        desiredItemWidth:
-                            screenWidth < 220 ? screenWidth * 0.8 : 200,
-                        minSpacing: 10,
-                        children: List.generate(
-                          _imageBytesList.length,
-                          (index) => Image.memory(_imageBytesList[index]!),
-                        ).toList(),
+                    ? Container(
+                        height: screenHight * 0.75,
+                        // height: screenWidth < 220
+                        //     ? _imageBytesList.length * 100 + 10
+                        //     : screenWidth < 650
+                        //         ? (_imageBytesList.length /
+                        //                     (screenWidth / 200) +
+                        //                 1) *
+                        //             100
+                        //         : ((_imageBytesList.length /
+                        //                 (screenWidth / 250))) *
+                        //             100,
+                        child: Expanded(
+                          child: ResponsiveGridList(
+                              desiredItemWidth:
+                                  screenWidth < 220 ? screenWidth * 0.8 : 200,
+                              minSpacing: 10,
+                              children: List.generate(
+                                      _imageBytesList.length,
+                                      (index) =>
+                                          Image.memory(_imageBytesList[index]!))
+                                  .toList()),
+                        ),
                       )
                     : SizedBox.shrink(),
           ],
         ),
       ),
+      floatingActionButton: Container(
+        width: screenWidth > 400 ? 150 : 50,
+        child: FloatingActionButton(
+          onPressed: () {
+            if (_imageBytesList.isNotEmpty)
+              Navigator.of(context).pushNamed(ComicPanel.routeName, arguments: {
+                'list': _imageBytesList,
+              });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.picture_in_picture_rounded),
+              if (screenWidth > 400) SizedBox(width: 10),
+              if (screenWidth > 400) Text('Comic Panel'),
+            ],
+          ),
+        ),
+      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation,
     );
   }
 }
