@@ -53,19 +53,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  int calculateCrossAxisCount(double screenWidth) {
-    // Calculate the number of columns based on screen width
-    int columns = 5; // Default number of columns
-    if (screenWidth < 600) {
-      columns = 2;
-    } else if (screenWidth < 900) {
-      columns = 3;
-    } else if (screenWidth < 1200) {
-      columns = 4;
-    }
-    return columns;
-  }
-
   void validateInput(String input) {
     List<String> parts = input.split(',');
 
@@ -143,16 +130,6 @@ class _HomePageState extends State<HomePage> {
                 : _imageBytesList.isNotEmpty
                     ? Container(
                         height: screenHight * 0.75,
-                        // height: screenWidth < 220
-                        //     ? _imageBytesList.length * 100 + 10
-                        //     : screenWidth < 650
-                        //         ? (_imageBytesList.length /
-                        //                     (screenWidth / 200) +
-                        //                 1) *
-                        //             100
-                        //         : ((_imageBytesList.length /
-                        //                 (screenWidth / 250))) *
-                        //             100,
                         child: ResponsiveGridList(
                             desiredItemWidth:
                                 screenWidth < 220 ? screenWidth * 0.8 : 200,
